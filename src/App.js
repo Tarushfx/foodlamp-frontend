@@ -5,23 +5,23 @@ import Feed from './routes/feed';
 import Login from './routes/login';
 import Register from './routes/register';
 
-
 function App() {
   return (
     <BrowserRouter>
       <Switch>
+        <Route exact path="/feed">
+          <Feed />
+        </Route>
+        <Route exact path="/login">
+          <Login />
+        </Route>
+        <Route exact path="/register">
+          <Register />
+        </Route>
         <Route exact path="/">
           <Home />
         </Route>
-        <Route path="/feed">
-          <Feed />
-        </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route path="/register">
-          <Register />
-        </Route>
+        <Redirect from="/" to="/" />
       </Switch>
 
     </BrowserRouter>

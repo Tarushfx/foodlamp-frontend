@@ -1,6 +1,11 @@
 .upvote {
   background-color: rgba(255, 136, 0, 0.993);
 }
-.downvote {
+.like {
   background-color: rgb(136, 136, 192);
+}
+
+.card-image {
+  max-height: 500px;
+  object-fit: contain;
 }

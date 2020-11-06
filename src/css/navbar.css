@@ -1,7 +1,7 @@
-.navbar{
-    padding:0.5rem 2rem;
-    justify-content: flex-start;
+.navbar {
+  padding: 0.5rem 2rem;
+  justify-content: flex-start;
 }
-.navbar-nav{
-    flex-direction: row;
+.navbar-nav {
+  flex-direction: row;
 }

@@ -1,29 +1,19 @@
 import React, { Component } from "react";
-import { Grid, Box } from "@material-ui/core";
-import homeTop from "./../styles/homeTop";
-import homeBottom from "./../styles/homeBottom";
+import landingPage from "../images/landing page.jpg";
 
-class Home extends Component {
-  state = {};
-  render() {
-    return (
-      <Grid container xs={12} direction="column">
-        <Grid item xs={12} style={homeTop}>
-          <Box height="450px">
-            <img src="https://picsum.photos/450" alt="x" />
-          </Box>
-        </Grid>
-        <Grid item container xs={12} style={homeBottom}>
-          <Grid item xs={6}>
-            box 1
-          </Grid>
-          <Grid item xs={6}>
-            box 2
-          </Grid>
-        </Grid>
-      </Grid>
-    );
-  }
-}
+const Home = () => {
+  return (
+    <div className="container-fluid p-0 w-100 m-0">
+      <div className="row bg-dark w-100 m-0">
+        <div className="col col-xs-12">
+          <img src={landingPage} alt="" />
+        </div>
+      </div>
+      <div className="row ">
+        <div className="col col-xs-12"></div>
+      </div>
+    </div>
+  );
+};
 
 export default Home;
