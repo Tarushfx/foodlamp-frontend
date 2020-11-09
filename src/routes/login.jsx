@@ -1,10 +1,7 @@
 import React, { Component } from "react";
-
-class Login extends Component {
-  state = {};
-  render() {
-    return;
-  }
-}
+import LoginForm from "../components/loginForm";
+const Login = (props) => {
+  return <LoginForm />;
+};
 
 export default Login;

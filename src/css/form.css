@@ -1,0 +1,14 @@
+.register,
+.login {
+  min-width: 360px;
+  max-width: 540px;
+}
+.banner-top-10 {
+  height: 10vh;
+}
+.banner-top-5 {
+  height: 5vh;
+}
+.error {
+  padding: 2px 6px;
+}
