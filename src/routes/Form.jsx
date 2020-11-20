@@ -17,7 +17,7 @@ class Form extends Component {
 
     const errors = { ...this.state.errors };
     const error = this.validateProperty(input);
-    console.log(error);
+    // console.log(error);
     if (error) errors[input.name] = error;
     else delete errors[input.name];
 
@@ -31,11 +31,11 @@ class Form extends Component {
       "confirmPassword",
       this.state.details["confirmPassword"]
     );
-    if (confirm)
+    if (confirm && this.state.details["confirmPassword"])
       errors["confirmPassword"] = errors["confirmPassword"]
         ? `${errors["confirmPassword"]} , ${confirm}`
         : confirm;
-    console.log(confirm);
+    // console.log(confirm);
     if (!error) {
       return confirm;
     }
@@ -46,7 +46,7 @@ class Form extends Component {
         ? item.message
         : `${errors[item.path[0]]} , ${item.message}`;
 
-    console.log(errors);
+    // console.log(errors);
     return errors;
   };
 
@@ -63,7 +63,7 @@ class Form extends Component {
     const { error } = Joi.validate(proprertyObject, propertySchema);
     // comparing the passwords
     const confirm = this.confirmPasswords(name, value);
-    console.log(confirm);
+    // console.log(confirm);
     if (error) return error.details[0].message;
     if (confirm) return confirm;
     return null;

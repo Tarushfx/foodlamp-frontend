@@ -4,7 +4,6 @@ import "../css/form.css";
 import Input from "./input";
 
 const RegisterForm = (props) => {
-  console.log(props.buttonDisable());
   return (
     <div className="container-fluid w-100 h-100">
       <div className="banner-top-5"></div>
@@ -13,7 +12,7 @@ const RegisterForm = (props) => {
         <div className="col col-md-6 register">
           <div className="card border-primary rounded">
             <h5 className="card-header info-color white-text text-center py-4">
-              <strong>Register Food-Lamp</strong>
+              <strong>Register with Food-Lamp</strong>
             </h5>
 
             <div className="card-body px-lg-5 pt-0">

@@ -1,11 +1,8 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "../css/form.css";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { fab } from "@fortawesome/free-brands-svg-icons";
-import { dom } from "@fortawesome/fontawesome-svg-core";
-dom.watch();
-library.add(fab);
+import Input from "./input";
+import { Link } from "react-router-dom";
 
 const LoginForm = (props) => {
   return (
@@ -24,48 +21,23 @@ const LoginForm = (props) => {
               <form
                 className="text-left"
                 style={{ color: "#757575" }}
-                action="#!"
+                onSubmit={props.onSubmit}
               >
-                <div className="md-form">
-                  <label for="materialLoginFormEmail">E-mail</label>
-                  <input
-                    type="email"
-                    id="materialLoginFormEmail"
-                    className="form-control"
-                  ></input>
-                  <br />
-                </div>
-
-                <div className="md-form">
-                  <label for="materialLoginFormPassword">Password</label>
-                  <input
-                    type="password"
-                    id="materialLoginFormPassword"
-                    className="form-control"
-                  ></input>
-                  <br />
-                </div>
-
-                <div className="d-flex justify-content-around">
-                  <div>
-                    <div className="form-check">
-                      <input
-                        type="checkbox"
-                        className="form-check-input"
-                        id="materialLoginFormRemember"
-                      ></input>
-                      <label
-                        className="form-check-label"
-                        for="materialLoginFormRemember"
-                      >
-                        Remember me
-                      </label>
-                    </div>
-                  </div>
-                  <div>
-                    <a href="">Forgot password?</a>
-                  </div>
-                </div>
+                <Input
+                  name="email"
+                  type="email"
+                  error={props.errors}
+                  label="E-mail"
+                  onChange={props.handleChange}
+                />
+                <Input
+                  name="password"
+                  type="password"
+                  error={props.errors}
+                  label="Password"
+                  onChange={props.handleChange}
+                />
+                
                 <button
                   className="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0"
                   type="submit"
@@ -76,22 +48,9 @@ const LoginForm = (props) => {
                 <div className="text-center">
                   <p>
                     Not a member?&nbsp;
-                    <a href="">Register</a>
+                    <Link to="/register">Register</Link>
                   </p>
 
-                  <p>or sign in with: </p>
-                  <a type="button" className="btn-floating btn-fb btn-sm">
-                    <i className="fab fa-facebook-f"></i>
-                  </a>
-                  <a type="button" className="btn-floating btn-tw btn-sm">
-                    <i className="fab fa-twitter"></i>
-                  </a>
-                  <a type="button" className="btn-floating btn-li btn-sm">
-                    <i className="fab fa-linkedin-in"></i>
-                  </a>
-                  <a type="button" className="btn-floating btn-git btn-sm">
-                    <i className="fab fa-github green"></i>
-                  </a>
                 </div>
               </form>
             </div>

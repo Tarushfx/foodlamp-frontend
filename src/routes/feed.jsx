@@ -19,7 +19,7 @@ class Feed extends Component {
     document
       .getElementById("selectFeedButtonGroup")
       .childNodes.forEach((item) => item.classList.remove("active"));
-    console.log(document.getElementById("selectFeedButtonGroup").childNodes);
+    // console.log(document.getElementById("selectFeedButtonGroup").childNodes);
     document.getElementById(e.target.id).classList.add("active");
 
     const feedArray = await getFeed(e.target.id);
@@ -35,7 +35,7 @@ class Feed extends Component {
         postUpvotes: feedArray[key].data.ups,
         postLink: feedArray[key].data.permalink,
         postCreateTime: new Date(parseInt(feedArray[key].data.created * 1000)),
-        author: feedArray[key].data.author_fullname,
+        author: feedArray[key].data.author,
       };
     });
   };

@@ -2,7 +2,7 @@ import React from "react";
 import _ from "lodash";
 import "../css/form.css";
 const Input = (props) => {
-  const id = `${props.name}LoginForm`;
+  const id = `${props.name}Form`;
   return (
     <div className="md-form">
       <label htmlFor={id}>{props.label}</label>
