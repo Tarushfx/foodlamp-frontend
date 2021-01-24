@@ -1,5 +1,6 @@
 import http from "./httpService";
 import _ from "lodash";
+import jwt from "jsonwebtoken";
 const apiEndpoint = "http://localhost:4000";
 
 export async function register(user) {
@@ -9,9 +10,9 @@ export async function register(user) {
       _.pick(user, ["name", "email", "password"])
     );
     localStorage.setItem("token", response.headers["x-auth-token"]);
-    return true;
+    return { status: true };
   } catch (error) {
-    return false;
+    return { status: false, error };
   }
 }
 
@@ -23,9 +24,9 @@ export async function login(user) {
     );
     localStorage.setItem("token", response.data);
 
-    return true;
+    return { status: true };
   } catch (error) {
-    return false;
+    return { status: false, error };
   }
 }
 
@@ -37,9 +38,19 @@ export async function logout() {
 export function getToken() {
   return localStorage.getItem("token");
 }
+export async function getEmail() {
+  const email = await jwt.decode(localStorage.getItem("token")).email;
+  return email;
+}
+export async function getName() {
+  const name = await jwt.decode(localStorage.getItem("token")).name;
+  return name;
+}
 export default {
   login,
   register,
   logout,
   getToken,
+  getEmail,
+  getName,
 };

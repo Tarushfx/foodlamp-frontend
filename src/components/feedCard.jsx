@@ -24,15 +24,25 @@ const FeedCard = (props) => {
       <div className="card-footer p-2">
         <div className="row w-100 m-0 pr-3">
           <div className="col-6 p-0">
-            <a class="badge badge-secondary" href={postLink} target="_blank">
+            <a
+              className="badge badge-secondary"
+              href={postLink}
+              target="_blank"
+            >
               Go to reddit post
             </a>
-            <span class="badge upvote">{props.upvotes} upvotes</span>
+            <span className="badge upvote">{props.upvotes} upvotes</span>
           </div>
           <div className="col p-0"></div>
           <div>
-            <span id="like" onClick={props.liked}>
-              <FavoriteBorderIcon />
+            <span id="like" onClick={props.handleLike}>
+              {props.data &&
+              props.data.likes &&
+              props.data.likes.inclues(postLink) ? (
+                <FavoriteIcon />
+              ) : (
+                <FavoriteBorderIcon />
+              )}
             </span>
           </div>
         </div>

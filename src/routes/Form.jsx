@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import Joi from "joi-browser";
-class Form extends Component {
+class Form extends React.Component {
   state = { details: {}, errors: {} };
 
   onSubmit = (e) => {
@@ -51,8 +51,8 @@ class Form extends Component {
   };
 
   confirmPasswords = (name, value) => {
-    if (name == "confirmPassword")
-      if (value != this.state.details.password)
+    if (name === "confirmPassword")
+      if (value !== this.state.details.password)
         return "The passwsords do not match!!!";
     return null;
   };

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import LoginForm from "../components/loginForm";
-import Joi from "joi-browser";
 import _ from "lodash";
-import Form from "./Form";
+import Joi from "joi-browser";
 import authService from "../services/authService";
+import Form from "./Form";
+import LoginForm from "../components/loginForm";
 class Login extends Form {
   state = {
     details: {
@@ -19,13 +19,21 @@ class Login extends Form {
   };
   doSubmit = async () => {
     try {
-
       const response = await authService.login(
-        _.pick(this.state.details, [ "email", "password"])
+        _.pick(this.state.details, ["email", "password"])
       );
-      if(!response) return ;
+      console.log("====================================");
+      console.log(response);
+      console.log("====================================");
+      if (response.error) {
+        const errors = { ...this.state.errors };
+        errors.email = response.error.response.data;
+        this.setState({ errors });
+      }
+      if (!response.status) return;
+      window.location = "/feed";
 
-      window.location="/feed";
+      window.location = "/feed";
     } catch (error) {
       if (error.response && error.response.status === 400) {
         const errors = { ...this.state.errors };
@@ -46,4 +54,3 @@ class Login extends Form {
 }
 
 export default Login;
-

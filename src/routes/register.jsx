@@ -1,9 +1,10 @@
-import React  from "react";
-import RegisterForm from "../components/registerForm";
-import Joi from "joi-browser";
+import React from "react";
 import _ from "lodash";
-import Form from "./Form";
 import authService from "../services/authService";
+import Form from "./Form";
+import Joi from "joi-browser";
+import RegisterForm from "../components/registerForm";
+
 class Register extends Form {
   state = {
     details: {
@@ -26,8 +27,9 @@ class Register extends Form {
       const response = await authService.register(
         _.pick(this.state.details, ["name", "email", "password"])
       );
-      if(!response) return;
-      window.location="/feed";
+      if (response.error) this.setState({ error: response.error });
+      if (!response.status) return;
+      window.location = "/feed";
     } catch (error) {
       if (error.response && error.response.status === 400) {
         const errors = { ...this.state.errors };

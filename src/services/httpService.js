@@ -1,8 +1,9 @@
 import axios from "axios";
-
-export default {
-    get: axios.get,
-    post: axios.post,
-    put: axios.put,
-    delete: axios.delete
+const http = {
+  get: axios.get,
+  post: axios.post,
+  put: axios.put,
+  delete: axios.delete,
 };
+export const apiEndpoint = "http://localhost:4000";
+export default http;

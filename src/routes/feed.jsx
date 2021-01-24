@@ -4,8 +4,10 @@ import NavBar from "./../components/navbar";
 import "../css/body.css";
 import WbSunnyIcon from "@material-ui/icons/WbSunny";
 import NightsStayIcon from "@material-ui/icons/NightsStay";
-import getFeed from "../services/feedService";
+import { getFeed } from "../services/feedService";
 import SelectFeed from "../components/selectFeed";
+import http from "../services/httpService";
+import { getEmail, getToken } from "../services/authService";
 
 class Feed extends Component {
   state = {
@@ -53,8 +55,20 @@ class Feed extends Component {
 
   changeTheme = () => this.setState({ darkTheme: !this.state.darkTheme });
 
-  liked = (e) => {
-    console.log("clicked");
+  handleLike = async (e, link) => {
+    try {
+      console.log(e, link);
+      const apiEndpoint = "http://localhost:4000";
+      const req = await http.post(`${apiEndpoint}/like`, {
+        email: await getEmail(),
+        link: `www.reddit.com${link}`,
+      });
+      console.log("====================================");
+      console.log(req);
+      console.log("====================================");
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   render() {
@@ -68,15 +82,19 @@ class Feed extends Component {
           }
         />
         <SelectFeed onChange={this.onChange} />
-        {this.state.posts.map((post) => (
+        {this.state.posts.map((post, index) => (
           <FeedPost
+            key={index}
             imageUrl={post.imageUrl}
             title={post.postTitle}
             upvotes={post.postUpvotes}
             link={post.postLink}
             createTime={post.postCreateTime}
             author={post.author}
-            liked={this.liked}
+            handleLike={(e) => {
+              this.handleLike(e, post.postLink);
+            }}
+            data={this.props.data}
           />
         ))}
       </React.Fragment>

@@ -14,7 +14,8 @@ const FeedPost = (props) => {
             link={props.link}
             createTime={props.createTime}
             author={props.author}
-            liked={props.liked}
+            handleLike={props.handleLike}
+            data={props.data}
           />
         </div>
         <div className="col col-sm-0 col-md-4 p-0"></div>
