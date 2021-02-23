@@ -3,13 +3,19 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
-import "../css/feedCard.css";
+import "../css/feed.css";
 
 const FeedCard = (props) => {
-  const postLink = "https://www.reddit.com" + props.link;
-
+  const postLink = "www.reddit.com" + props.link;
+  // console.log(props.theme);
   return (
-    <div className="card mt-1 bg-dark text-light">
+    <div
+      className="card mt-1"
+      style={{
+        backgroundColor: props.theme.secondary,
+        color: props.theme.text,
+      }}
+    >
       <h6 className="card-title p-1 mb-0">{props.title}</h6>
       <img
         className="card-image mw-100 m-1"
@@ -38,7 +44,7 @@ const FeedCard = (props) => {
             <span id="like" onClick={props.handleLike}>
               {props.data &&
               props.data.likes &&
-              props.data.likes.inclues(postLink) ? (
+              props.data.likes.includes(postLink) == true ? (
                 <FavoriteIcon />
               ) : (
                 <FavoriteBorderIcon />

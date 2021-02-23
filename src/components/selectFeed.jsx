@@ -1,15 +1,28 @@
 import React from "react";
-import getFeed from "../services/feedService";
+import "../css/feed.css";
 
 const SelectFeed = (props) => {
   return (
     <div className="row w-100 m-0">
       <div className="col col-sm-0 col-md-3 p-0"></div>
-      <div className="col col-sm-0 col-md-5 p-0 bg-dark">
-        <div className="btn-group-toggle" id="selectFeedButtonGroup">
+      <div
+        className="col col-sm-0 col-md-5 p-0"
+        style={{ backgroundColor: props.theme.secondary }}
+      >
+        <div
+          className="btn-group-toggle"
+          id="selectFeedButtonGroup"
+          style={{ display: "flex", justifyContent: "space-around" }}
+        >
           <div
             type="button"
-            className="btn btn-dark active"
+            className="btn active"
+            style={{
+              backgroundColor: props.theme.primary,
+              borderRadius: 0,
+              color: props.theme.text,
+              flexGrow: 1,
+            }}
             id="hot"
             onClick={props.onChange}
           >
@@ -17,7 +30,13 @@ const SelectFeed = (props) => {
           </div>
           <div
             type="button"
-            className="btn btn-dark "
+            className="btn"
+            style={{
+              backgroundColor: props.theme.secondary,
+              borderRadius: 0,
+              color: props.theme.text,
+              flexGrow: 1,
+            }}
             id="new"
             onClick={props.onChange}
           >
@@ -25,7 +44,13 @@ const SelectFeed = (props) => {
           </div>
           <div
             type="button"
-            className="btn btn-dark"
+            className="btn"
+            style={{
+              backgroundColor: props.theme.secondary,
+              borderRadius: 0,
+              color: props.theme.text,
+              flexGrow: 1,
+            }}
             id="best"
             onClick={props.onChange}
           >
@@ -33,7 +58,13 @@ const SelectFeed = (props) => {
           </div>
           <div
             type="button"
-            className="btn btn-dark "
+            className="btn"
+            style={{
+              backgroundColor: props.theme.secondary,
+              borderRadius: 0,
+              color: props.theme.text,
+              flexGrow: 1,
+            }}
             id="rising"
             onClick={props.onChange}
           >
@@ -41,7 +72,13 @@ const SelectFeed = (props) => {
           </div>
           <div
             type="button"
-            className="btn btn-dark "
+            className="btn"
+            style={{
+              backgroundColor: props.theme.secondary,
+              borderRadius: 0,
+              color: props.theme.text,
+              flexGrow: 1,
+            }}
             id="top"
             onClick={props.onChange}
           >

@@ -16,6 +16,7 @@ const FeedPost = (props) => {
             author={props.author}
             handleLike={props.handleLike}
             data={props.data}
+            theme={props.theme}
           />
         </div>
         <div className="col col-sm-0 col-md-4 p-0"></div>

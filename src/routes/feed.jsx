@@ -2,29 +2,36 @@ import React, { Component } from "react";
 import FeedPost from "../higherOrderComponents/feedPost";
 import NavBar from "./../components/navbar";
 import "../css/body.css";
-import WbSunnyIcon from "@material-ui/icons/WbSunny";
-import NightsStayIcon from "@material-ui/icons/NightsStay";
 import { getFeed } from "../services/feedService";
 import SelectFeed from "../components/selectFeed";
 import http from "../services/httpService";
 import { getEmail, getToken } from "../services/authService";
+import LoadMorePosts from "../components/LoadMorePosts";
 
 class Feed extends Component {
   state = {
-    darkTheme: true,
+    category: "hot",
     posts: [],
+    limit: 20,
+    theme: this.props.theme,
   };
 
   onChange = async (e) => {
-    let posts = [];
+    let posts = [],
+      category = e.target.id;
     this.setState({ posts });
+    this.setState({ category });
     document
       .getElementById("selectFeedButtonGroup")
-      .childNodes.forEach((item) => item.classList.remove("active"));
+      .childNodes.forEach(
+        (item) => (item.style.backgroundColor = this.props.theme.secondary)
+      );
     // console.log(document.getElementById("selectFeedButtonGroup").childNodes);
-    document.getElementById(e.target.id).classList.add("active");
+    document.getElementById(
+      category
+    ).style.backgroundColor = this.props.theme.primary;
 
-    const feedArray = await getFeed(e.target.id);
+    const feedArray = await getFeed(this.state.category, this.state.limit);
     posts = this.getPosts(feedArray);
     this.setState({ posts });
   };
@@ -43,17 +50,11 @@ class Feed extends Component {
   };
 
   async componentDidMount() {
-    const feedArray = await getFeed("hot");
+    const feedArray = await getFeed(this.state.category, this.state.limit);
     const posts = this.getPosts(feedArray);
     this.setState({ posts });
+    document.body.style.backgroundColor = this.state.theme.primary;
   }
-
-  applyTheme = () => {
-    if (this.state.darkTheme) document.body.style.backgroundColor = "#696969";
-    else document.body.style.backgroundColor = "#fff";
-  };
-
-  changeTheme = () => this.setState({ darkTheme: !this.state.darkTheme });
 
   handleLike = async (e, link) => {
     try {
@@ -63,9 +64,7 @@ class Feed extends Component {
         email: await getEmail(),
         link: `www.reddit.com${link}`,
       });
-      console.log("====================================");
-      console.log(req);
-      console.log("====================================");
+      this.props.loadData();
     } catch (error) {
       console.log(error.message);
     }
@@ -74,14 +73,12 @@ class Feed extends Component {
   render() {
     return (
       <React.Fragment>
-        {this.applyTheme()}
         <NavBar
-          onChange={this.changeTheme}
-          themeIcon={
-            this.state.darkTheme ? <NightsStayIcon /> : <WbSunnyIcon />
-          }
+          onChange={this.props.changeTheme}
+          theme={this.props.theme}
+          data={this.props.data}
         />
-        <SelectFeed onChange={this.onChange} />
+        <SelectFeed onChange={this.onChange} theme={this.props.theme} />
         {this.state.posts.map((post, index) => (
           <FeedPost
             key={index}
@@ -91,12 +88,30 @@ class Feed extends Component {
             link={post.postLink}
             createTime={post.postCreateTime}
             author={post.author}
+            theme={this.props.theme}
             handleLike={(e) => {
               this.handleLike(e, post.postLink);
             }}
             data={this.props.data}
           />
         ))}
+        {this.state.limit < 100 && (
+          <LoadMorePosts
+            handleClick={async () => {
+              if (this.state.limit <= 80) {
+                console.log(this.state.limit);
+                const feedArray = await getFeed(
+                  this.state.category,
+                  this.state.limit + 20
+                );
+                let posts = [].concat(this.state.posts);
+                posts = posts.concat(this.getPosts(feedArray).slice(-20));
+                this.setState({ posts: posts });
+                this.setState({ limit: this.state.limit + 20 });
+              }
+            }}
+          />
+        )}
       </React.Fragment>
     );
   }

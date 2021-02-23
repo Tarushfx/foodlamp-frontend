@@ -39,12 +39,22 @@ export function getToken() {
   return localStorage.getItem("token");
 }
 export async function getEmail() {
-  const email = await jwt.decode(localStorage.getItem("token")).email;
-  return email;
+  let decoded = localStorage.getItem("token");
+  console.log(decoded);
+  if (decoded) {
+    const email = await jwt.decode(decoded).email;
+    console.log(email);
+    return email;
+  }
+  return null;
 }
 export async function getName() {
-  const name = await jwt.decode(localStorage.getItem("token")).name;
-  return name;
+  let decoded = localStorage.getItem("token");
+  if (decoded) {
+    const name = await jwt.decode(decoded).name;
+    return name;
+  }
+  return null;
 }
 export default {
   login,

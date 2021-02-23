@@ -6,22 +6,41 @@ import Login from "./routes/login";
 import Register from "./routes/register";
 import Logout from "./routes/logout";
 import authService from "./services/authService";
-import { loadData } from "./services/feedService";
+import { loadData, saveTheme } from "./services/feedService";
+import palette from "./css/color";
 
-// const data = loadData();
 function App() {
   const [data, setData] = useState({});
-  useEffect(() => {
-    let reqData = async () => await loadData();
-    console.log(reqData, 123);
-    if (data) setData(reqData);
-  });
-
+  const [theme, setTheme] = useState(palette[0]);
+  const loadAllData = () => {
+    const getData = async () => {
+      let reqData = await loadData();
+      setData(reqData);
+      if (reqData)
+        setTheme(palette.filter((element) => element.name == reqData.theme)[0]);
+    };
+    getData();
+  };
+  useEffect(loadAllData, []);
+  const changeTheme = () => {
+    console.log("clicked");
+    const index = palette.indexOf(theme);
+    console.log(index, palette);
+    let newTheme = palette[(index + 1) % palette.length];
+    saveTheme(newTheme.name);
+    setTheme(newTheme);
+    // loadAllData();
+  };
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/feed">
-          <Feed data={data} />
+          <Feed
+            data={data}
+            loadData={loadAllData}
+            theme={theme.color}
+            changeTheme={changeTheme}
+          />
         </Route>
         <Route exact path="/login">
           {authService.getToken() ? (

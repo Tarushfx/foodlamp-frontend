@@ -1,12 +1,13 @@
 import { getEmail } from "./authService.js";
 import http, { apiEndpoint } from "./httpService.js";
-
-export async function getFeed(id) {
+import fetch from "node-fetch";
+import axios from "axios";
+export async function getFeed(id, limit = 20) {
   const feedResult = await http.get(
     `https://www.reddit.com/r/food/${id}.json`,
     {
       params: {
-        limit: 5,
+        limit: limit,
       },
     }
   );
@@ -15,15 +16,36 @@ export async function getFeed(id) {
 export async function loadData() {
   try {
     const email = await getEmail();
-    console.log(email);
     if (email) {
-      const data = await http.get(`${apiEndpoint}/feed`, {
-        email: email,
-      });
-      console.log(data);
-      return data;
+      const data = await axios
+        .get(`${apiEndpoint}/feed`, {
+          params: {
+            email: email,
+          },
+        })
+        .catch((ex) => console.log(ex));
+
+      console.log(data, data.data);
+      return data.data;
+    } else {
+      console.log("no email");
     }
   } catch (error) {
     console.log(error.message);
+  }
+}
+export async function saveTheme(theme) {
+  try {
+    const email = await getEmail();
+    if (email) {
+      const data = await axios.post(`${apiEndpoint}/me`, {
+        email: email,
+        theme: theme,
+      });
+    } else {
+      console.log("no email");
+    }
+  } catch (ex) {
+    console.log(ex.message);
   }
 }
