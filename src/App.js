@@ -8,6 +8,7 @@ import Logout from "./routes/logout";
 import authService from "./services/authService";
 import { loadData, saveTheme } from "./services/feedService";
 import palette from "./css/color";
+import Recipe from "./routes/recipe.jsx";
 
 function App() {
   const [data, setData] = useState({});
@@ -29,7 +30,6 @@ function App() {
     let newTheme = palette[(index + 1) % palette.length];
     saveTheme(newTheme.name);
     setTheme(newTheme);
-    // loadAllData();
   };
   return (
     <BrowserRouter>
@@ -51,6 +51,14 @@ function App() {
           ) : (
             <Login data={data} />
           )}
+        </Route>
+        <Route exact path="/recipe">
+          <Recipe
+            data={data}
+            loadData={loadAllData}
+            theme={theme.color}
+            changeTheme={changeTheme}
+          />
         </Route>
         <Route exact path="/logout">
           <Logout data={data} />

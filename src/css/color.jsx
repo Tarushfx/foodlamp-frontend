@@ -4,7 +4,7 @@ const light = {
   text: "#333333",
 };
 const dark = {
-  primary: "#695959",
+  primary: "#696969",
   secondary: "#343a40",
   text: "#ffffff",
 };

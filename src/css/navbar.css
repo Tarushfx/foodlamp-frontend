@@ -5,3 +5,8 @@
 .navbar-nav {
   flex-direction: row;
 }
+.search {
+  max-width: 500px;
+  display: inline-flex;
+  margin: auto;
+}

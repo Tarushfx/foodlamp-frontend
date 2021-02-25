@@ -7,6 +7,9 @@ import SelectFeed from "../components/selectFeed";
 import http from "../services/httpService";
 import { getEmail, getToken } from "../services/authService";
 import LoadMorePosts from "../components/LoadMorePosts";
+import FeedCard from "../components/feedCard";
+import { getRecipes } from "../services/recipeService";
+import { Redirect, useHistory } from "react-router";
 
 class Feed extends Component {
   state = {
@@ -55,6 +58,10 @@ class Feed extends Component {
     this.setState({ posts });
     document.body.style.backgroundColor = this.state.theme.primary;
   }
+  //debug later
+  componentDidUpdate() {
+    document.body.style.backgroundColor = this.state.theme.primary;
+  }
 
   handleLike = async (e, link) => {
     try {
@@ -81,6 +88,7 @@ class Feed extends Component {
         <SelectFeed onChange={this.onChange} theme={this.props.theme} />
         {this.state.posts.map((post, index) => (
           <FeedPost
+            post={FeedCard}
             key={index}
             imageUrl={post.imageUrl}
             title={post.postTitle}
@@ -99,7 +107,6 @@ class Feed extends Component {
           <LoadMorePosts
             handleClick={async () => {
               if (this.state.limit <= 80) {
-                console.log(this.state.limit);
                 const feedArray = await getFeed(
                   this.state.category,
                   this.state.limit + 20

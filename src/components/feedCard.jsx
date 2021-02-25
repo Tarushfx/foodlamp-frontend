@@ -25,7 +25,7 @@ const FeedCard = (props) => {
 
       <h6 className="card-text p-1 m-0">
         Posted by <span>u/{props.author}</span> on{" "}
-        {props.createTime.toString().slice(0, -34)}
+        {props.time.toString().slice(0, -34)}
       </h6>
       <div className="card-footer p-2">
         <div className="row w-100 m-0 pr-3">

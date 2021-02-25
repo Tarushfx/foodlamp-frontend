@@ -3,14 +3,20 @@ import FastfoodTwoToneIcon from "@material-ui/icons/FastfoodTwoTone";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
 import "../css/navbar.css";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import NavBarLink from "./navBarLink";
 import authService, { getName, getToken } from "../services/authService";
 import { WbSunny } from "@material-ui/icons";
+import SearchIcon from "@material-ui/icons/Search";
+import { getRecipes } from "../services/recipeService";
 
 export default function NavBar(props) {
   const token = getToken();
+  const [search, setSearch] = useState("");
 
+  const handleChange = (e) => {
+    setSearch(e.currentTarget.value);
+  };
   return (
     <div
       className="navbar"
@@ -30,7 +36,7 @@ export default function NavBar(props) {
       </Link>
       <ul className="navbar-nav">
         <NavBarLink link="#" theme={props.theme} name="Meal Plan" />
-        <NavBarLink link="#" theme={props.theme} name="Recipes" />
+        <NavBarLink link="/recipe" theme={props.theme} name="Recipes" />
         {!token && (
           <NavBarLink link="/login" theme={props.theme} name="Login" />
         )}
@@ -38,6 +44,31 @@ export default function NavBar(props) {
           <NavBarLink link="/logout" theme={props.theme} name="Logout" />
         )}
       </ul>
+      {props.searchRecipe && (
+        <div className="input-group rounded search">
+          <input
+            type="search"
+            className="form-control rounded"
+            placeholder={props.search || "Search Recipes"}
+            aria-label="Search"
+            aria-describedby="search-addon"
+            onChange={handleChange}
+            // background={props.theme.secondary}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                props.searchRecipe(e, search);
+              }
+            }}
+          />
+          <span class="input-group-text border-0" id="search-addon">
+            <SearchIcon
+              onClick={(e) => {
+                props.searchRecipe(e, search);
+              }}
+            />
+          </span>
+        </div>
+      )}
       <ul className="navbar-nav" style={{ marginLeft: "auto" }}>
         {token && (
           <NavBarLink
