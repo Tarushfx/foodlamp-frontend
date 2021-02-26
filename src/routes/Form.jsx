@@ -1,6 +1,7 @@
 import React from "react";
 import Joi from "joi-browser";
-class Form extends React.Component {
+import { Component } from "react";
+class Form extends Component {
   state = { details: {}, errors: {} };
 
   onSubmit = (e) => {

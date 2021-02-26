@@ -9,6 +9,7 @@ import authService from "./services/authService";
 import { loadData, saveTheme } from "./services/feedService";
 import palette from "./css/color";
 import Recipe from "./routes/recipe.jsx";
+import MealPlan from "./routes/mealplan";
 
 function App() {
   const [data, setData] = useState({});
@@ -54,6 +55,14 @@ function App() {
         </Route>
         <Route exact path="/recipe">
           <Recipe
+            data={data}
+            loadData={loadAllData}
+            theme={theme.color}
+            changeTheme={changeTheme}
+          />
+        </Route>
+        <Route exact path="/mealplan">
+          <MealPlan
             data={data}
             loadData={loadAllData}
             theme={theme.color}

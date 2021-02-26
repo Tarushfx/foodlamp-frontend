@@ -14,6 +14,11 @@ const Input = (props) => {
         onChange={props.onChange}
         name={props.name}
         key={props.key}
+        readOnly={
+          document.getElementById(`${id.slice(0, -13)}Form`) &&
+          document.getElementById(`${id.slice(0, -13)}Form`).value == ""
+        }
+        placeholder={props.placeholderText || ""}
       ></input>
       {props.error &&
         props.error[props.name] &&

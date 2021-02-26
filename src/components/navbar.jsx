@@ -35,7 +35,7 @@ export default function NavBar(props) {
         </span>
       </Link>
       <ul className="navbar-nav">
-        <NavBarLink link="#" theme={props.theme} name="Meal Plan" />
+        <NavBarLink link="/mealplan" theme={props.theme} name="Meal Plan" />
         <NavBarLink link="/recipe" theme={props.theme} name="Recipes" />
         {!token && (
           <NavBarLink link="/login" theme={props.theme} name="Login" />
