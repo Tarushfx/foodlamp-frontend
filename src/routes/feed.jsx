@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import FeedPost from "../higherOrderComponents/feedPost";
-import NavBar from "./../components/navbar";
+import NavBar from "../components/navbar";
 import "../css/body.css";
 import { getFeed } from "../services/feedService";
 import SelectFeed from "../components/selectFeed";
@@ -8,7 +8,7 @@ import http from "../services/httpService";
 import { getEmail, getToken } from "../services/authService";
 import LoadMorePosts from "../components/LoadMorePosts";
 import FeedCard from "../components/feedCard";
-import { getRecipes } from "../services/recipeService";
+import { getRecipes, likeRecipe } from "../services/recipeService";
 import { Redirect, useHistory } from "react-router";
 
 class Feed extends Component {
@@ -63,14 +63,10 @@ class Feed extends Component {
     document.body.style.backgroundColor = this.state.theme.primary;
   }
 
-  handleLike = async (e, link) => {
+  handleLike = async (e, name, link) => {
     try {
       console.log(e, link);
-      const apiEndpoint = "http://localhost:4000";
-      const req = await http.post(`${apiEndpoint}/like`, {
-        email: await getEmail(),
-        link: `www.reddit.com${link}`,
-      });
+      await likeRecipe(name, `www.reddit.com${link}`);
       this.props.loadData();
     } catch (error) {
       console.log(error.message);
@@ -98,12 +94,12 @@ class Feed extends Component {
             author={post.author}
             theme={this.props.theme}
             handleLike={(e) => {
-              this.handleLike(e, post.postLink);
+              this.handleLike(e, post.postTitle, post.postLink);
             }}
             data={this.props.data}
           />
         ))}
-        {this.state.limit < 100 && (
+        {this.state.limit < 100 && this.state.posts.length !== 0 && (
           <LoadMorePosts
             handleClick={async () => {
               if (this.state.limit <= 80) {

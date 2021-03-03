@@ -17,3 +17,26 @@ export async function saveDiet(diet) {
     console.log(ex.message);
   }
 }
+export async function saveProfile({
+  newPassword,
+  oldPassword,
+  name,
+  newEmail,
+}) {
+  try {
+    const email = await getEmail();
+    if (email) {
+      const data = await http.post(`${apiEndpoint}/me/profile`, {
+        email: email,
+        newEmail: newEmail,
+        name: name,
+        newPassword: newPassword,
+        oldPassword: oldPassword,
+      });
+    } else {
+      console.log("Invalid");
+    }
+  } catch (ex) {
+    console.log(ex.message);
+  }
+}

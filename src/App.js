@@ -5,11 +5,14 @@ import Feed from "./routes/feed";
 import Login from "./routes/login";
 import Register from "./routes/register";
 import Logout from "./routes/logout";
+import Graphs from "./routes/graphs";
 import authService from "./services/authService";
 import { loadData, saveTheme } from "./services/feedService";
 import palette from "./css/color";
 import Recipe from "./routes/recipe.jsx";
 import MealPlan from "./routes/mealplan";
+import Me from "./routes/me";
+import Likes from "./routes/likes.jsx";
 
 function App() {
   const [data, setData] = useState({});
@@ -61,6 +64,30 @@ function App() {
             changeTheme={changeTheme}
           />
         </Route>
+        <Route exact path="/me/likes">
+          <Likes
+            data={data}
+            loadData={loadAllData}
+            theme={theme.color}
+            changeTheme={changeTheme}
+          />
+        </Route>
+        <Route exact path="/me/graphs">
+          <Graphs
+            data={data}
+            loadData={loadAllData}
+            theme={theme.color}
+            changeTheme={changeTheme}
+          />
+        </Route>
+        <Route exact path="/me">
+          <Me
+            data={data}
+            loadData={loadAllData}
+            theme={theme.color}
+            changeTheme={changeTheme}
+          />
+        </Route>
         <Route exact path="/mealplan">
           <MealPlan
             data={data}
@@ -69,6 +96,7 @@ function App() {
             changeTheme={changeTheme}
           />
         </Route>
+
         <Route exact path="/logout">
           <Logout data={data} />
         </Route>

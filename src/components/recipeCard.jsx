@@ -28,7 +28,9 @@ const RecipeCard = (props) => {
             <span id="like" onClick={props.handleLike}>
               {props.data &&
               props.data.likes &&
-              props.data.likes.includes(props.recipeID) === true ? (
+              props.data.likes.includes(
+                JSON.stringify({ name: props.title, link: props.link })
+              ) === true ? (
                 <FavoriteIcon />
               ) : (
                 <FavoriteBorderIcon />

@@ -24,10 +24,20 @@ const MealPlan = (props) => {
   const [dietArray, setDietArray] = useState([]);
   useEffect(() => {
     const getDietArray = () => {
-      setDietArray(props.diet && props.data.diet);
+      setDietNumber(
+        (props.data &&
+          props.data.diet &&
+          props.data.diet.indexOf(
+            props.data.diet.find(
+              (item) => new Date(item.date).getTime() >= new Date().getTime()
+            )
+          )) ||
+          0
+      );
+      setDietArray(props.data && props.data.diet);
     };
     getDietArray();
-  }, []);
+  }, [props]);
   const dietTimings = [
     "earlyMorning",
     "midMorning",
@@ -53,7 +63,7 @@ const MealPlan = (props) => {
     await doSubmit();
     await props.loadData();
     //closing modal
-    document.getElementById("dietForm").click();
+    document.getElementById("dietFormButton").click();
     //updating State
     setDietArray(props.diet && props.data.diet);
     //clearing form
@@ -102,6 +112,7 @@ const MealPlan = (props) => {
         </div>
         <div className="col col-sm-0 col-md-4 p-0"></div>
       </div>
+
       <DietForm handleChange={handleChange} onSubmit={onSubmit} />
     </>
   );

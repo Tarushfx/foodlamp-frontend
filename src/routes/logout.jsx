@@ -1,12 +1,10 @@
-import React from 'react';
+import React from "react";
 import authService from "../services/authService";
 const Logout = (props) => {
-    authService.logout();
-    window.location="/feed";
+  authService.logout();
+  window.location = "/feed";
 
+  return null;
+};
 
-    return ( null
-    );
-}
- 
 export default Logout;

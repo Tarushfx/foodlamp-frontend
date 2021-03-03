@@ -40,10 +40,10 @@ export function getToken() {
 }
 export async function getEmail() {
   let decoded = localStorage.getItem("token");
-  console.log(decoded);
+  // console.log(decoded);
   if (decoded) {
     const email = await jwt.decode(decoded).email;
-    console.log(email);
+    // console.log(email);
     return email;
   }
   return null;

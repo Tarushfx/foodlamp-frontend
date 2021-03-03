@@ -36,7 +36,7 @@ export async function saveTheme(theme) {
   try {
     const email = await getEmail();
     if (email) {
-      const data = await http.post(`${apiEndpoint}/me`, {
+      const data = await http.post(`${apiEndpoint}/me/theme`, {
         email: email,
         theme: theme,
       });

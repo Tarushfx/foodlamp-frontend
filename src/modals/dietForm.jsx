@@ -11,19 +11,12 @@ const DietForm = (props) => {
     "postDinner",
   ];
   return (
-    <div
-      class="modal fade"
-      id="dietForm"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalCenterTitle"
-      aria-hidden="true"
-    >
+    <div class="modal fade" id="dietForm" tabindex="-1" role="dialog">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLongTitle">
-              Modal title
+              Diet Form
             </h5>
             <button
               type="button"

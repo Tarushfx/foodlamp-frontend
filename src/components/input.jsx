@@ -15,10 +15,14 @@ const Input = (props) => {
         name={props.name}
         key={props.key}
         readOnly={
-          document.getElementById(`${id.slice(0, -13)}Form`) &&
-          document.getElementById(`${id.slice(0, -13)}Form`).value == ""
+          (document.getElementById(`${id.slice(0, -13)}Form`) &&
+            document.getElementById(`${id.slice(0, -13)}Form`).value == "") ||
+          (document.getElementById("oldPasswordForm") &&
+            document.getElementById("oldPasswordForm").value === "" &&
+            id === "newPasswordForm")
         }
         placeholder={props.placeholderText || ""}
+        required={props.type === "date"}
       ></input>
       {props.error &&
         props.error[props.name] &&

@@ -72,7 +72,7 @@ export default function NavBar(props) {
       <ul className="navbar-nav" style={{ marginLeft: "auto" }}>
         {token && (
           <NavBarLink
-            link="#"
+            link="/me"
             theme={props.theme}
             name={props.data && props.data.name}
           />

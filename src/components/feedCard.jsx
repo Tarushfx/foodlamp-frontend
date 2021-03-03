@@ -44,7 +44,9 @@ const FeedCard = (props) => {
             <span id="like" onClick={props.handleLike}>
               {props.data &&
               props.data.likes &&
-              props.data.likes.includes(postLink) == true ? (
+              props.data.likes.includes(
+                JSON.stringify({ name: props.title, link: postLink })
+              ) == true ? (
                 <FavoriteIcon />
               ) : (
                 <FavoriteBorderIcon />

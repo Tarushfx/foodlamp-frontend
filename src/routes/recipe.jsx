@@ -8,7 +8,7 @@ import RecipeCard from "../components/recipeCard.jsx";
 import FeedPost from "../higherOrderComponents/feedPost.jsx";
 import { getEmail } from "../services/authService.js";
 import http from "../services/httpService.js";
-import { getRecipes } from "../services/recipeService.js";
+import { getRecipes, likeRecipe } from "../services/recipeService.js";
 
 const Recipe = (props) => {
   const location = useLocation();
@@ -34,14 +34,10 @@ const Recipe = (props) => {
     recipes = recipes.data.hits;
     setRecipeArray(recipes);
   };
-  const handleLike = async (e, link) => {
+  const handleLike = async (e, name, link) => {
     try {
       console.log(e, link);
-      const apiEndpoint = "http://localhost:4000";
-      const req = await http.post(`${apiEndpoint}/like`, {
-        email: await getEmail(),
-        link: link,
-      });
+      await likeRecipe(name, link);
       props.loadData();
     } catch (error) {
       console.log(error.message);
@@ -69,7 +65,7 @@ const Recipe = (props) => {
             link={recipe.url}
             time={recipe.totalTime}
             index={index}
-            handleLike={(e) => handleLike(e, recipe.uri)}
+            handleLike={(e) => handleLike(e, recipe.label, recipe.url)}
             //recipe
             ingredients={recipe.ingredients}
             healthLabels={recipe.healthLabels}
@@ -78,18 +74,20 @@ const Recipe = (props) => {
             serving={recipe.yield}
           />
         ))}
-      <LoadMorePosts
-        handleClick={async () => {
-          if (from <= 50) {
-            let recipes = await getRecipes(search, from + 10);
-            setFrom(from + 10);
-            recipes = recipes.data.hits;
-            let tempRecipes = [].concat(recipeArray);
-            tempRecipes = tempRecipes.concat(recipes);
-            setRecipeArray(tempRecipes);
-          }
-        }}
-      />
+      {recipeArray.length !== 0 && (
+        <LoadMorePosts
+          handleClick={async () => {
+            if (from <= 50) {
+              let recipes = await getRecipes(search, from + 10);
+              setFrom(from + 10);
+              recipes = recipes.data.hits;
+              let tempRecipes = [].concat(recipeArray);
+              tempRecipes = tempRecipes.concat(recipes);
+              setRecipeArray(tempRecipes);
+            }
+          }}
+        />
+      )}
     </>
   );
 };

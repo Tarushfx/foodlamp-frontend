@@ -1,7 +1,9 @@
 import React from "react";
+import { formData } from "../routes/graphs";
+import Graph from "./graph";
 
 const DietCard = (props) => {
-  console.log(props);
+  // console.log(props);
   return (
     <>
       <div className="row w-100 m-0">
@@ -24,6 +26,7 @@ const DietCard = (props) => {
           class="btn btn-primary"
           data-toggle="modal"
           data-target="#dietForm"
+          id="dietFormButton"
         >
           Diet Form
         </button>
@@ -78,6 +81,16 @@ const DietCard = (props) => {
           ))}
         </div>
       </div>
+      <Graph
+        data={formData(
+          props.dietTimings,
+          props.dietTimings.map(
+            (timing) =>
+              props.diet && props.diet.diet && props.diet.diet[timing].calories
+          )
+        )}
+        array={props.dietTimings}
+      />
     </>
   );
 };
