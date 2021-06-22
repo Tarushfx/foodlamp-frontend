@@ -5,10 +5,9 @@
   background-color: rgb(136, 136, 192);
 }
 
-.card-image {
-  max-height: 500px;
-  object-fit: contain;
+.main-card-outer {
+  margin: 10px;
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
 }
-/* .btn.active {
-  background-color: cadetblue;
-} */
