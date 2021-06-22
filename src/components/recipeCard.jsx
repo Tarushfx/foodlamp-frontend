@@ -45,6 +45,7 @@ const RecipeCard = (props) => {
               aria-controls="collapseExample"
               onClick={(e) => {
                 setOpen(!open);
+                console.log("h1llo");
               }}
             >
               {open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
@@ -54,14 +55,14 @@ const RecipeCard = (props) => {
         <div className="row w-100 m-0 pr-3">
           Labels: <br />
           <ul>
-            {props.healthLabels.map((label) => (
-              <span>
+            {props.healthLabels.map((label, index) => (
+              <span key={index}>
                 {label}
                 <br />
               </span>
             ))}
-            {props.dietLabels.map((label) => (
-              <span>
+            {props.dietLabels.map((label, index) => (
+              <span key={index}>
                 {label}
                 <br />
               </span>
@@ -72,11 +73,10 @@ const RecipeCard = (props) => {
           <div class="collapse" id={`ingredients-${props.index}`}>
             Ingredients:
             <ul>
-              {props.ingredients.map((item) => (
-                <li>
+              {props.ingredients.map((item, index) => (
+                <li key={index}>
                   <span>
                     {item.text}
-
                     <br />
                   </span>
                 </li>

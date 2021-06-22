@@ -22,18 +22,20 @@ const MealPlan = (props) => {
 
   const [dietNumber, setDietNumber] = useState(0);
   const [dietArray, setDietArray] = useState([]);
+  const [graphExists, setGraphExists] = useState(false);
   useEffect(() => {
     const getDietArray = () => {
-      setDietNumber(
-        (props.data &&
-          props.data.diet &&
-          props.data.diet.indexOf(
-            props.data.diet.find(
-              (item) => new Date(item.date).getTime() >= new Date().getTime()
-            )
-          )) ||
-          0
-      );
+      const index =
+        props.data &&
+        props.data.diet &&
+        props.data.diet.indexOf(
+          props.data.diet.find(
+            (item) => new Date(item.date).getDate() == new Date().getDate()
+          )
+        );
+
+      setDietNumber(index);
+      setGraphExists(index != 1);
       setDietArray(props.data && props.data.diet);
     };
     getDietArray();
@@ -102,6 +104,7 @@ const MealPlan = (props) => {
           <DietCard
             dietNumber={dietNumber}
             dietChange={dietChange}
+            graphExists={graphExists}
             theme={props.theme}
             diet={
               (props.data && props.data.diet && props.data.diet[dietNumber]) ||

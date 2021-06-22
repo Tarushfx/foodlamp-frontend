@@ -13,7 +13,6 @@ const Me = (props) => {
     oldPassword: "",
   };
   const [profileForm, setProfileForm] = useState(profileFormState);
-  const params = useParams();
   const onSubmit = async (e) => {
     e.preventDefault();
     await doSubmit();
@@ -34,13 +33,10 @@ const Me = (props) => {
     }
   };
   const handleChange = ({ currentTarget: { value, id } }) => {
-    // console.log(value, id);
     let profile = { ...profileForm };
     profile[id.slice(0, -4)] = value;
-    // console.log(profile);
     setProfileForm(profile);
   };
-  // console.log(params);
   return (
     <>
       <NavBar
@@ -51,67 +47,26 @@ const Me = (props) => {
 
       <div className="row w-100 m-0">
         <div className="col col-sm-0 col-md-3 p-0"></div>
-        <div
-          className="col col-sm-0 col-md-5 p-0"
-          style={{ backgroundColor: props.theme.secondary }}
-        >
-          <div
-            className="btn-group-toggle"
-            id="selectFeedButtonGroup"
-            style={{ display: "flex", justifyContent: "space-around" }}
-          >
-            <button
-              type="button"
-              class="btn active"
-              data-toggle="modal"
-              data-target="#profileSettingsForm"
-              style={{
-                backgroundColor: props.theme.secondary,
-                borderRadius: 0,
-                color: props.theme.text,
-                flexGrow: 1,
-              }}
-            >
-              Profile
-            </button>
-            <a
-              href="/me/likes"
-              className="nav-link"
-              style={{
-                backgroundColor: props.theme.secondary,
-                borderRadius: 2,
-                justifyContent: "center",
-                display: "grid",
-                flexGrow: 1,
-              }}
-            >
-              <button
-                type="button"
-                class="btn"
-                style={{ color: props.theme.text }}
-              >
-                Favourites
-              </button>
-            </a>
-            <a
-              href="/me/graphs"
-              style={{
-                backgroundColor: props.theme.secondary,
-                borderRadius: 2,
-                justifyContent: "center",
-                display: "grid",
-                flexGrow: 1,
-              }}
-            >
-              <button
-                type="button"
-                style={{ color: props.theme.text }}
-                class="btn"
-              >
-                Graphs
-              </button>
-            </a>
+        <div className="col col-sm-0 col-md-5 p-0">
+          <div className="user-details">
+            <div>{props.data.name}</div>
+            <div>{props.data.email}</div>
+            <div>{props.data.theme}</div>
           </div>
+          <button
+            type="button"
+            class="btn active"
+            data-toggle="modal"
+            data-target="#profileSettingsForm"
+            style={{
+              backgroundColor: props.theme.secondary,
+              borderRadius: 0,
+              color: props.theme.text,
+              flexGrow: 1,
+            }}
+          >
+            Profile
+          </button>
         </div>
         <div className="col col-sm-0 col-md-4 p-0"></div>
       </div>

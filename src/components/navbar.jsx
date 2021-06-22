@@ -9,10 +9,12 @@ import authService, { getName, getToken } from "../services/authService";
 import { WbSunny } from "@material-ui/icons";
 import SearchIcon from "@material-ui/icons/Search";
 import { getRecipes } from "../services/recipeService";
-
+import { Popover } from "react-tiny-popover";
+import ProfileDropdown from "./profileDropDown";
 export default function NavBar(props) {
   const token = getToken();
   const [search, setSearch] = useState("");
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
   const handleChange = (e) => {
     setSearch(e.currentTarget.value);
@@ -71,12 +73,34 @@ export default function NavBar(props) {
       )}
       <ul className="navbar-nav" style={{ marginLeft: "auto" }}>
         {token && (
+          <Popover
+            isOpen={isPopoverOpen}
+            positions={["top", "bottom", "left", "right"]} // preferred positions by priority
+            content={<ProfileDropdown theme={props.theme} />}
+          >
+            <li
+              className="nav-item"
+              style={{ alignContent: "center", display: "grid" }}
+            >
+              <div
+                style={{ color: props.theme.text }}
+                onClick={() => setIsPopoverOpen(!isPopoverOpen)}
+              >
+                {props.data && props.data.name}
+              </div>
+            </li>
+          </Popover>
+        )}
+        {/* 
+            restructuring the drop down
+        */}
+        {/* {token && (
           <NavBarLink
             link="/me"
             theme={props.theme}
             name={props.data && props.data.name}
           />
-        )}
+        )} */}
         <button type="button" className="btn" onClick={props.onChange}>
           <WbSunny />
         </button>

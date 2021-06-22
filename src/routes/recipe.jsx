@@ -53,41 +53,46 @@ const Recipe = (props) => {
         search={(location.state && location.state.search) || ""}
         searchRecipe={searchRecipe}
       />
-
-      {recipeArray &&
-        recipeArray.map(({ recipe }, index) => (
-          <FeedPost
-            post={RecipeCard}
-            theme={props.theme}
-            imageUrl={recipe.image}
-            title={recipe.label}
-            data={props.data}
-            link={recipe.url}
-            time={recipe.totalTime}
-            index={index}
-            handleLike={(e) => handleLike(e, recipe.label, recipe.url)}
-            //recipe
-            ingredients={recipe.ingredients}
-            healthLabels={recipe.healthLabels}
-            dietLabels={recipe.dietLabels}
-            recipeID={recipe.uri}
-            serving={recipe.yield}
+      <div className="recipegrid row w-80">
+        {recipeArray &&
+          recipeArray.map(({ recipe }, index) => (
+            <>
+              <div className="col-sm-6">
+                <RecipeCard
+                  key={index}
+                  theme={props.theme}
+                  imageUrl={recipe.image}
+                  title={recipe.label}
+                  data={props.data}
+                  link={recipe.url}
+                  time={recipe.totalTime}
+                  index={index}
+                  handleLike={(e) => handleLike(e, recipe.label, recipe.url)}
+                  //recipe
+                  ingredients={recipe.ingredients}
+                  healthLabels={recipe.healthLabels}
+                  dietLabels={recipe.dietLabels}
+                  recipeID={recipe.uri}
+                  serving={recipe.yield}
+                />
+              </div>
+            </>
+          ))}
+        {recipeArray.length !== 0 && (
+          <LoadMorePosts
+            handleClick={async () => {
+              if (from <= 50) {
+                let recipes = await getRecipes(search, from + 10);
+                setFrom(from + 10);
+                recipes = recipes.data.hits;
+                let tempRecipes = [].concat(recipeArray);
+                tempRecipes = tempRecipes.concat(recipes);
+                setRecipeArray(tempRecipes);
+              }
+            }}
           />
-        ))}
-      {recipeArray.length !== 0 && (
-        <LoadMorePosts
-          handleClick={async () => {
-            if (from <= 50) {
-              let recipes = await getRecipes(search, from + 10);
-              setFrom(from + 10);
-              recipes = recipes.data.hits;
-              let tempRecipes = [].concat(recipeArray);
-              tempRecipes = tempRecipes.concat(recipes);
-              setRecipeArray(tempRecipes);
-            }
-          }}
-        />
-      )}
+        )}
+      </div>
     </>
   );
 };

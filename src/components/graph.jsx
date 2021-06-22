@@ -6,6 +6,7 @@ import "../css/graph.css";
 const margin = 20;
 class Graph extends Component {
   render() {
+    console.log(this.props);
     let { data, width, height } = this.props;
     width = width || 700;
     height = height || 350;
@@ -60,16 +61,16 @@ class Graph extends Component {
         </g>
       ) : null
     );
-
-    return (
-      <svg width={width} height={height} className="graph">
-        <line className="axis" x1={margin} x2={w} y1={h} y2={h} />
-        <line className="axis" x1={margin} x2={margin} y1={margin} y2={h} />
-        <path d={line(data)} />
-        <g className="axis-labels">{xTicks}</g>
-        <g className="axis-labels">{yTicks}</g>
-      </svg>
-    );
+    return <></>;
+    // return (
+    //   <svg width={width} height={height} className="graph">
+    //     <line className="axis" x1={margin} x2={w} y1={h} y2={h} />
+    //     <line className="axis" x1={margin} x2={margin} y1={margin} y2={h} />
+    //     <path d={line(data)} />
+    //     <g className="axis-labels">{xTicks}</g>
+    //     <g className="axis-labels">{yTicks}</g>
+    //   </svg>
+    // );
   }
 }
 

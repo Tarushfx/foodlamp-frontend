@@ -7,6 +7,7 @@ const FeedPost = (props) => {
         <div className="col col-sm-0 col-md-3 p-0"></div>
         <div className="col col-sm-12 col-md-5 p-0 col-xs-6">
           <props.post
+            key={props.index}
             data={props.data}
             imageUrl={props.imageUrl}
             link={props.link}
@@ -14,6 +15,7 @@ const FeedPost = (props) => {
             time={props.createTime}
             title={props.title}
             theme={props.theme}
+            index={props.index}
             // feed
             author={props.author || ""}
             upvotes={props.upvotes || ""}

@@ -6,7 +6,7 @@ import "bootstrap/dist/js/bootstrap.js";
 import "../css/feed.css";
 
 const FeedCard = (props) => {
-  const postLink = "www.reddit.com" + props.link;
+  const postLink = "https://www.reddit.com" + props.link;
   // console.log(props.theme);
   return (
     <div
