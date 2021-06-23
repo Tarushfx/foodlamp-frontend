@@ -1,32 +1,37 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import landingPage from "../images/landing page.jpg";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import landingPage from '../images/landing page.jpg';
+import '../css/home.css';
+import FastfoodTwoToneIcon from '@material-ui/icons/FastfoodTwoTone';
 
 const Home = () => {
   return (
-    <div className="container-fluid p-0 w-100 m-0">
-      <div className="row bg-dark w-100 m-0">
-        <div className="col">
-          <span className="btn btn-dark">
-            <Link to="/register" className="text-light nav-link">
-              Register with Foodlamp
+    <header>
+      <div className="LandingPage">
+        <nav className="landing-nav">
+          <div className="nav-title">
+            FoodLamp
+            <FastfoodTwoToneIcon />
+          </div>
+          <div className="right-links">
+            <Link to="/login" style={{ textDecoration: 'none' }}>
+              Login
             </Link>
-          </span>
-        </div>
-        <div className="col">
-          <span className="btn btn-dark">
-            <Link to="/login" className="text-light nav-link">
-              Login to Foodlamp
+            <Link to="/register" style={{ textDecoration: 'none' }}>
+              Register
             </Link>
-          </span>
+          </div>
+        </nav>
+        <div className="hero-section">
+          <h1 className="hero-title">Welcome to FoodLamp</h1>
+          <h2 className="hero-about">See food posts, get recipies, make a diet plan</h2>
+          <h2 className="hero-about">and much more.</h2>
+          <Link to="/login">
+            <button className="hero-btn">Get Started</button>
+          </Link>
         </div>
       </div>
-      <div className="row">
-        <div className="col col-xs-12">
-          <img src={landingPage} alt="" />
-        </div>
-      </div>
-    </div>
+    </header>
   );
 };
 
