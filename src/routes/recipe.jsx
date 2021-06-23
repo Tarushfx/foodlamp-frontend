@@ -52,29 +52,27 @@ const Recipe = (props) => {
         search={(location.state && location.state.search) || ''}
         searchRecipe={searchRecipe}
       />
-      <div className="recipegrid row w-80">
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
         {recipeArray &&
           recipeArray.map(({ recipe }, index) => (
             <>
-              <div className="col-sm-6">
-                <RecipeCard
-                  key={index}
-                  theme={props.theme}
-                  imageUrl={recipe.image}
-                  title={recipe.label}
-                  data={props.data}
-                  link={recipe.url}
-                  time={recipe.totalTime}
-                  index={index}
-                  handleLike={(e) => handleLike(e, recipe.label, recipe.url)}
-                  //recipe
-                  ingredients={recipe.ingredients}
-                  healthLabels={recipe.healthLabels}
-                  dietLabels={recipe.dietLabels}
-                  recipeID={recipe.uri}
-                  serving={recipe.yield}
-                />
-              </div>
+              <RecipeCard
+                key={index}
+                theme={props.theme}
+                imageUrl={recipe.image}
+                title={recipe.label}
+                data={props.data}
+                link={recipe.url}
+                time={recipe.totalTime}
+                index={index}
+                handleLike={(e) => handleLike(e, recipe.label, recipe.url)}
+                //recipe
+                ingredients={recipe.ingredients}
+                healthLabels={recipe.healthLabels}
+                dietLabels={recipe.dietLabels}
+                recipeID={recipe.uri}
+                serving={recipe.yield}
+              />
             </>
           ))}
         {recipeArray.length !== 0 && (
