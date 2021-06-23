@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../css/RecipePage.css';
 
 function RecipePage() {
@@ -44,8 +44,7 @@ function RecipePage() {
       that.tick();
     }, delta);
   };
-
-  window.onload = function () {
+  useEffect(() => {
     var elements = document.getElementsByClassName('txt-rotate');
     for (var i = 0; i < elements.length; i++) {
       var toRotate = elements[i].getAttribute('data-rotate');
@@ -59,7 +58,8 @@ function RecipePage() {
     css.type = 'text/css';
     css.innerHTML = '.txt-rotate > .wrap { border-right: 0.08em solid #666 }';
     document.body.appendChild(css);
-  };
+  }, []);
+
   return (
     <div className="loading">
       <h1>

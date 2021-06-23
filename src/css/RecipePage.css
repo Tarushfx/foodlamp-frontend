@@ -1,9 +1,13 @@
+body {
+  background-color: #dae0e6;
+}
+
 .loading {
   margin: 10% auto;
   font-family: 'Raleway', sans-serif;
   padding: 3em 2em;
   font-size: 18px;
-  background: #fff;
+  background: #dae0e6;
   color: #222;
 }
 
