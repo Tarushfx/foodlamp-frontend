@@ -1,0 +1,21 @@
+.loading {
+  margin: 10% auto;
+  font-family: 'Raleway', sans-serif;
+  padding: 3em 2em;
+  font-size: 18px;
+  background: #fff;
+  color: #222;
+}
+
+.loading h1,
+h2 {
+  font-weight: 200;
+  margin: 0.4em 0;
+}
+.loading h1 {
+  font-size: 3.5em;
+}
+.loading h2 {
+  color: #888;
+  font-size: 2em;
+}

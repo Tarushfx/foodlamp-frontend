@@ -1,23 +1,22 @@
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
-import { useHistory, useLocation } from "react-router";
-import LoadMorePosts from "../components/LoadMorePosts.jsx";
-import Navbar from "../components/navbar.jsx";
-import RecipeCard from "../components/recipeCard.jsx";
-import FeedPost from "../higherOrderComponents/feedPost.jsx";
-import { getEmail } from "../services/authService.js";
-import http from "../services/httpService.js";
-import { getRecipes, likeRecipe } from "../services/recipeService.js";
+import React from 'react';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import { useHistory, useLocation } from 'react-router';
+import LoadMorePosts from '../components/LoadMorePosts.jsx';
+import Navbar from '../components/navbar.jsx';
+import RecipeCard from '../components/recipeCard.jsx';
+import RecipePage from '../components/RecipePage.jsx';
+import FeedPost from '../higherOrderComponents/feedPost.jsx';
+import { getEmail } from '../services/authService.js';
+import http from '../services/httpService.js';
+import { getRecipes, likeRecipe } from '../services/recipeService.js';
 
 const Recipe = (props) => {
   const location = useLocation();
   const history = useHistory();
   const [recipeArray, setRecipeArray] = useState([]);
   const [from, setFrom] = useState(0);
-  const [search, setSearch] = useState(
-    (location.state && location.state.search) || ""
-  );
+  const [search, setSearch] = useState((location.state && location.state.search) || '');
   useEffect(() => {
     let recipeHelper = async () => {
       let recipes = await getRecipes(search);
@@ -27,7 +26,7 @@ const Recipe = (props) => {
     recipeHelper();
   }, []);
   const searchRecipe = async (e, searchTerm) => {
-    history.push("/recipe", { search: searchTerm });
+    history.push('/recipe', { search: searchTerm });
     setSearch(searchTerm);
     let recipes = await getRecipes(search || searchTerm);
     console.log(recipes.data.hits);
@@ -50,7 +49,7 @@ const Recipe = (props) => {
         onChange={props.changeTheme}
         theme={props.theme}
         data={props.data}
-        search={(location.state && location.state.search) || ""}
+        search={(location.state && location.state.search) || ''}
         searchRecipe={searchRecipe}
       />
       <div className="recipegrid row w-80">
@@ -92,6 +91,8 @@ const Recipe = (props) => {
             }}
           />
         )}
+
+        {recipeArray.length == 0 && <RecipePage />}
       </div>
     </>
   );
