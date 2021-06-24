@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { formData } from "../routes/graphs";
-import Graph from "./graph";
+// import { formData } from "../routes/graphs";
+// import Graph from "./graph";
 
 const DietCard = (props) => {
   // console.log(props);
@@ -87,7 +87,7 @@ const DietCard = (props) => {
               ))}
             </div>
           </div>
-          <Graph
+          {/* <Graph
             data={formData(
               props.dietTimings,
               props.dietTimings.map((timing) => {
@@ -101,7 +101,7 @@ const DietCard = (props) => {
               })
             )}
             array={props.dietTimings}
-          />
+          /> */}
         </>
       )}
       {!props.graphExists && <div>Create a graph for today!!!</div>}
