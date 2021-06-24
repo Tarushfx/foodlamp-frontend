@@ -4,9 +4,16 @@ import NavBar from "../components/navbar";
 import { useState, useEffect } from "react";
 import GraphButtons from "./graphButtons";
 import VerticalBar from "../components/graphn";
-function daysInMonth(date) {
-  date = new Date(date);
-  return new Date(date.getFullYear(), date.getMonth(), 0).getDate();
+// function daysInMonth(date) {
+//   date = new Date(date);
+//   return new Date(date.getFullYear(), date.getMonth(), 0).getDate();
+// }
+function daysInMonth(anyDateInMonth) {
+  return new Date(
+    anyDateInMonth.getFullYear(),
+    anyDateInMonth.getMonth() + 1,
+    0
+  ).getDate();
 }
 const weekArray = [
   "monday",
@@ -26,6 +33,20 @@ const dayArray = [
   "dinner",
   "postDinner",
 ];
+const yearArray = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
 Date.prototype.getWeek = function () {
   var onejan = new Date(this.getFullYear(), 0, 1);
   var today = new Date(this.getFullYear(), this.getMonth(), this.getDate());
@@ -38,20 +59,24 @@ const Graphs = (props) => {
   const [xaxis, setXaxis] = useState([]);
   const [yaxis, setYaxis] = useState([]);
   const [graphExists, setGraphExists] = useState(false);
-  const monthArray = _.range(1, daysInMonth(date) + 1 || 32);
+  //   const monthArray = _.range(1, daysInMonth(date) + 1 || 32);
+  const monthArray = Array.from({ length: daysInMonth(date) }, (_, i) => i + 1);
+
   useEffect(() => {
     setXaxis(calcXaxis());
     setYaxis(calcYaxis());
   }, []);
   useEffect(() => {
+    console.log(type);
     setXaxis(calcXaxis());
     setYaxis(calcYaxis());
     console.log(xaxis, yaxis);
   }, [date, type]);
   const calcXaxis = () => {
     if (["day", "dailyAvg"].includes(type)) return dayArray;
-    if (type === ("week" || "weeklyAvg")) return weekArray;
-    if (type === ("month" || "monthlyAvg")) return monthArray;
+    if (["week", "weeklyAvg"].includes(type)) return weekArray;
+    if (["month"].includes(type)) return monthArray;
+    if (["monthlyAvg"].includes(type)) return yearArray;
     return [];
   };
   const calcYaxis = () => {
@@ -81,9 +106,6 @@ const Graphs = (props) => {
         break;
       case "dailyAvg":
         foundDiet = dietArray;
-        if (!foundDiet) {
-          return [];
-        }
         var len = xaxis.length;
         foundyvalues = new Array(len);
         foundyvalues.fill(0, 0, len);
@@ -102,9 +124,11 @@ const Graphs = (props) => {
         break;
       case "week":
         const foundDiets = dietArray.filter(
-          (diet) => new Date(date).getWeek() === new Date(diet.date).getWeek()
+          (diet) =>
+            new Date(date).getWeek() === new Date(diet.date).getWeek() &&
+            new Date(diet.date).getFullYear() == new Date(date).getFullYear()
         );
-        const currentWeek = new Date(date).getWeek();
+        // const currentWeek = new Date(date).getWeek();
         console.log(foundDiets);
         foundyvalues = new Array(7);
         foundyvalues.fill(0);
@@ -116,6 +140,63 @@ const Graphs = (props) => {
             foundyvalues[day] += foundDiets[diet].diet[meal].calories;
           }
         }
+        return foundyvalues;
+        break;
+      case "weeklyAvg":
+        foundDiet = dietArray;
+        var len = xaxis.length;
+        foundyvalues = new Array(7);
+        foundyvalues.fill(0);
+        // console.log(foundyvalues);
+        // foundDiet = foundDiet.map((diet) => diet.diet);
+
+        for (var diet in foundDiet) {
+          var day = new Date(foundDiet[diet].date).getDay();
+          for (var key in foundDiet[diet].diet) {
+            foundyvalues[day] +=
+              foundDiet[diet].diet[key].calories / foundDiet.length;
+            // console.log(foundyvalues[key]);
+          }
+        }
+        console.log(xaxis, foundDiet, foundyvalues);
+
+        return foundyvalues;
+        break;
+      case "month":
+        var foundDiet = dietArray.filter(
+          (diet) =>
+            new Date(diet.date).getMonth() == new Date(date).getMonth() &&
+            new Date(diet.date).getFullYear() == new Date(date).getFullYear()
+        );
+        console.log(xaxis);
+        var len = monthArray.length;
+        var foundyvalues = new Array(len);
+        foundyvalues.fill(0);
+        for (var diet in foundDiet) {
+          var day = new Date(foundDiet[diet].date).getDate();
+          console.log(day);
+          for (var key in foundDiet[diet].diet) {
+            foundyvalues[day] += foundDiet[diet].diet[key].calories;
+            console.log(foundyvalues[day]);
+          }
+        }
+        // console.log(xaxis, foundDiet, foundyvalues);
+        return foundyvalues;
+        break;
+      case "monthlyAvg":
+        foundDiet = dietArray;
+        var len = xaxis.length;
+        foundyvalues = new Array(len);
+        foundyvalues.fill(0);
+        for (var diet in foundDiet) {
+          var month = new Date(foundDiet[diet].date).getMonth();
+          for (var key in foundDiet[diet].diet) {
+            foundyvalues[month] +=
+              foundDiet[diet].diet[key].calories / foundDiet.length;
+            // console.log(foundyvalues[key]);
+          }
+        }
+
         return foundyvalues;
         break;
       default:

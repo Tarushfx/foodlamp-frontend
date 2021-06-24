@@ -37,7 +37,7 @@ const GraphButtons = (props) => {
           </button>
           <button
             className="btn btn-priamry "
-            id="weelyAvg"
+            id="weeklyAvg"
             onClick={props.onTypeChange}
           >
             weekly avg

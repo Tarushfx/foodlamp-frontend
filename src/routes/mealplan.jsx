@@ -6,6 +6,7 @@ import { useState } from "react";
 import { saveDiet } from "../services/profileSevices";
 import DietCard from "../components/dietCard";
 import { useEffect } from "react";
+import VerticalBar from "../components/graphn";
 
 const MealPlan = (props) => {
   const initialStateTemplate = {
@@ -23,6 +24,20 @@ const MealPlan = (props) => {
   const [dietNumber, setDietNumber] = useState(0);
   const [dietArray, setDietArray] = useState([]);
   const [graphExists, setGraphExists] = useState(false);
+  const [graph, setGraph] = useState(<></>);
+  const createGraph = () => {
+    if (dietNumber == null || !dietArray) return <></>;
+    var len = dietTimings.length;
+    var foundyvalues = new Array(len);
+    // console.log(dietNumber);
+    for (var key = 0; key < len; key++) {
+      foundyvalues[key] =
+        // dietNumber &&
+        dietArray[dietNumber] &&
+        dietArray[dietNumber].diet[dietTimings[key]].calories;
+    }
+    return <VerticalBar xaxis={dietTimings} yaxis={foundyvalues} />;
+  };
   useEffect(() => {
     const getDietArray = () => {
       const index =
@@ -30,16 +45,25 @@ const MealPlan = (props) => {
         props.data.diet &&
         props.data.diet.indexOf(
           props.data.diet.find(
-            (item) => new Date(item.date).getDate() == new Date().getDate()
+            (item) =>
+              new Date(item.date).toISOString().substr(0, 10) ==
+              new Date().toISOString().substr(0, 10)
           )
         );
-
-      setDietNumber(index);
-      setGraphExists(index != 1);
+      console.log("====================================");
+      console.log(index);
+      console.log("====================================");
+      setDietNumber(index || -1);
+      setGraphExists(index != -1);
       setDietArray(props.data && props.data.diet);
+      setGraph(createGraph());
     };
     getDietArray();
   }, [props]);
+  useEffect(() => {
+    setGraph(createGraph());
+    return () => {};
+  }, [dietNumber]);
   const dietTimings = [
     "earlyMorning",
     "midMorning",
@@ -79,6 +103,7 @@ const MealPlan = (props) => {
     };
     try {
       await saveDiet(finalObject);
+      setDietForm(initialStateTemplate);
     } catch (ex) {
       console.log(ex.message);
     }
@@ -104,13 +129,15 @@ const MealPlan = (props) => {
           <DietCard
             dietNumber={dietNumber}
             dietChange={dietChange}
-            graphExists={graphExists}
+            graph={<a />}
             theme={props.theme}
             diet={
               (props.data && props.data.diet && props.data.diet[dietNumber]) ||
               {}
             }
+            graphExists={graphExists}
             dietTimings={dietTimings}
+            graph={graph}
           />
         </div>
         <div className="col col-sm-0 col-md-4 p-0"></div>

@@ -1,11 +1,6 @@
-import React, { useState } from "react";
-// import { formData } from "../routes/graphs";
-// import Graph from "./graph";
+import React from "react";
 
 const DietCard = (props) => {
-  // console.log(props);
-  //   const [graphExists, setGraphExists] = useState(props.dietNumber != -1);
-  //   var graphExists = props.dietNumber != -1;
   return (
     <>
       <div className="row w-100 m-0">
@@ -33,7 +28,7 @@ const DietCard = (props) => {
           Diet Form
         </button>
       </div>
-      {props.graphExists && (
+      {props.graphExists && props.graphExists == true && (
         <>
           <div className="row w-100 m-0 diet-date">
             <span className="pl-2">{props.diet.date}</span>
@@ -87,24 +82,12 @@ const DietCard = (props) => {
               ))}
             </div>
           </div>
-          {/* <Graph
-            data={formData(
-              props.dietTimings,
-              props.dietTimings.map((timing) => {
-                const graphData =
-                  props.diet &&
-                  props.diet.diet &&
-                  props.diet.diet[timing].calories;
-                // setGraphExists(graphData != false);
-                // graphExists = graphData != false;
-                return graphData;
-              })
-            )}
-            array={props.dietTimings}
-          /> */}
+          {props.graph}
         </>
       )}
-      {!props.graphExists && <div>Create a graph for today!!!</div>}
+      {!props.graphExists && props.graphExists == false && (
+        <div>Create a graph for today!!!</div>
+      )}
     </>
   );
 };
