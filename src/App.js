@@ -58,19 +58,13 @@ function App() {
             changeTheme={changeTheme}
           />
         </Route>
-        <Route exact path="/me/likes">
-          <Likes data={data} loadData={loadAllData} theme={theme.color} changeTheme={changeTheme} />
-        </Route>
-        <Route exact path="/me/graphs">
+        <Route exact path="/graphs">
           <Graphs
             data={data}
             loadData={loadAllData}
             theme={theme.color}
             changeTheme={changeTheme}
           />
-        </Route>
-        <Route exact path="/me">
-          <Me data={data} loadData={loadAllData} theme={theme.color} changeTheme={changeTheme} />
         </Route>
         <Route exact path="/mealplan">
           <MealPlan

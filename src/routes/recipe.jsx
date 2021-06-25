@@ -53,6 +53,7 @@ const Recipe = (props) => {
         data={props.data}
         search={(location.state && location.state.search) || ""}
         searchRecipe={searchRecipe}
+        loadData={props.loadData}
       />
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
         {recipeArray &&
@@ -77,23 +78,23 @@ const Recipe = (props) => {
               />
             </>
           ))}
-        {recipeArray.length !== 0 && (
-          <LoadMorePosts
-            handleClick={async () => {
-              if (from <= 50) {
-                let recipes = await getRecipes(search, from + 10);
-                setFrom(from + 10);
-                recipes = recipes.data.hits;
-                let tempRecipes = [].concat(recipeArray);
-                tempRecipes = tempRecipes.concat(recipes);
-                setRecipeArray(tempRecipes);
-              }
-            }}
-          />
-        )}
-
-        {recipeArray.length == 0 && <RecipePage />}
       </div>
+      {recipeArray.length !== 0 && (
+        <LoadMorePosts
+          handleClick={async () => {
+            if (from <= 50) {
+              let recipes = await getRecipes(search, from + 10);
+              setFrom(from + 10);
+              recipes = recipes.data.hits;
+              let tempRecipes = [].concat(recipeArray);
+              tempRecipes = tempRecipes.concat(recipes);
+              setRecipeArray(tempRecipes);
+            }
+          }}
+        />
+      )}
+
+      {recipeArray.length == 0 && <RecipePage />}
     </>
   );
 };

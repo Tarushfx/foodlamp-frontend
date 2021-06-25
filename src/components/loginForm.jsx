@@ -16,7 +16,7 @@ const LoginForm = (props) => {
               <strong>Login to Food-Lamp</strong>
             </h5>
 
-            <div className="card-body px-lg-5 pt-0">
+            <div className="card-body pt-0" style={{ display: "inline" }}>
               <br />
               <form
                 className="text-left"
@@ -37,7 +37,7 @@ const LoginForm = (props) => {
                   label="Password"
                   onChange={props.handleChange}
                 />
-                
+
                 <button
                   className="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0"
                   type="submit"
@@ -50,7 +50,6 @@ const LoginForm = (props) => {
                     Not a member?&nbsp;
                     <Link to="/register">Register</Link>
                   </p>
-
                 </div>
               </form>
             </div>

@@ -15,7 +15,7 @@ const RegisterForm = (props) => {
               <strong>Register with Food-Lamp</strong>
             </h5>
 
-            <div className="card-body px-lg-5 pt-0">
+            <div className="card-body pt-0" style={{ display: "inline" }}>
               <br />
               <form
                 className="text-left"

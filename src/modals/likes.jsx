@@ -1,10 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import NavBar from "../components/navbar";
-import _ from "lodash";
-import { getRecipes, likeRecipe } from "../services/recipeService";
-import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import { likeRecipe } from "../services/recipeService";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 const Likes = (props) => {
   console.log(props);
@@ -16,7 +13,7 @@ const Likes = (props) => {
     try {
       console.log(e, link);
       await likeRecipe(name, link);
-      props.loadData();
+      await props.loadData();
     } catch (error) {
       console.log(error.message);
     }
@@ -26,9 +23,7 @@ const Likes = (props) => {
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">
-              Liked Recipes
-            </h5>
+            <h5 class="modal-title">Liked Recipes</h5>
             <button
               type="button"
               class="close"
@@ -43,7 +38,7 @@ const Likes = (props) => {
               likesArray.map(
                 (item) =>
                   Object.keys(item).length !== 0 && (
-                    <div>
+                    <span>
                       <a
                         href={`${
                           JSON.parse(item).link &&
@@ -66,15 +61,14 @@ const Likes = (props) => {
                           )
                         }
                       >
-                        {likesArray.includes(item) == true ? (
-                          <FavoriteIcon />
-                        ) : (
-                          <FavoriteBorderIcon />
-                        )}
+                        <FavoriteIcon />
                       </span>
-                    </div>
+                    </span>
                   )
               )}
+            {likesArray.length == 0 && (
+              <h2 style={{ fontFamily: "sans-serif" }}>Nothing liked Yet!!!</h2>
+            )}
           </div>
         </div>
       </div>

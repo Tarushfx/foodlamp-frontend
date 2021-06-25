@@ -30,9 +30,8 @@ class Feed extends Component {
         (item) => (item.style.backgroundColor = this.props.theme.secondary)
       );
     // console.log(document.getElementById("selectFeedButtonGroup").childNodes);
-    document.getElementById(
-      category
-    ).style.backgroundColor = this.props.theme.primary;
+    document.getElementById(category).style.backgroundColor =
+      this.props.theme.primary;
 
     const feedArray = await getFeed(this.state.category, this.state.limit);
     posts = this.getPosts(feedArray);
@@ -80,6 +79,7 @@ class Feed extends Component {
           onChange={this.props.changeTheme}
           theme={this.props.theme}
           data={this.props.data}
+          loadData={this.props.loadData}
         />
         <SelectFeed onChange={this.onChange} theme={this.props.theme} />
         {this.state.posts.map((post, index) => (

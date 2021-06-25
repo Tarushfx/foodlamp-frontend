@@ -3,11 +3,19 @@ import "../css/feed.css";
 
 const SelectFeed = (props) => {
   return (
-    <div className="row w-100 m-0">
-      <div className="col col-sm-0 col-md-3 p-0"></div>
+    <div
+      className="row w-100 m-0"
+      style={{
+        display: "grid",
+        justifyContent: "center",
+        alignContent: "center",
+      }}
+    >
+      {/* <div className="col col-sm-0 col-md-3 p-0"></div> */}
       <div
-        className="col col-sm-0 col-md-5 p-0"
-        style={{ backgroundColor: props.theme.secondary }}
+        // className="col col-sm-0 col-md-5 p-0"
+
+        style={{ backgroundColor: props.theme.secondary, width: "780px" }}
       >
         <div
           className="btn-group-toggle"
@@ -86,7 +94,7 @@ const SelectFeed = (props) => {
           </div>
         </div>
       </div>
-      <div className="col col-sm-0 col-md-4 p-0"></div>
+      {/* <div className="col col-sm-0 col-md-4 p-0"></div> */}
     </div>
   );
 };

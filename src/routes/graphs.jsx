@@ -2,12 +2,9 @@ import React from "react";
 import _ from "lodash";
 import NavBar from "../components/navbar";
 import { useState, useEffect } from "react";
-import GraphButtons from "./graphButtons";
+import GraphButtons from "../components/graphButtons";
 import VerticalBar from "../components/graphn";
-// function daysInMonth(date) {
-//   date = new Date(date);
-//   return new Date(date.getFullYear(), date.getMonth(), 0).getDate();
-// }
+import "../css/graph.css";
 function daysInMonth(anyDateInMonth) {
   return new Date(
     anyDateInMonth.getFullYear(),
@@ -106,15 +103,15 @@ const Graphs = (props) => {
         break;
       case "dailyAvg":
         foundDiet = dietArray;
-        var len = xaxis.length;
+        var len = dayArray.length;
         foundyvalues = new Array(len);
-        foundyvalues.fill(0, 0, len);
+        foundyvalues.fill(0);
         // console.log(foundyvalues);
-        foundDiet = foundDiet.map((diet) => diet.diet);
+
         for (var diet in foundDiet) {
           for (var key = 0; key < len; key++) {
             foundyvalues[key] +=
-              foundDiet[diet][xaxis[key]].calories / foundDiet.length;
+              foundDiet[diet].diet[dayArray[key]].calories / foundDiet.length;
             // console.log(foundyvalues[key]);
           }
         }
@@ -219,13 +216,25 @@ const Graphs = (props) => {
         onChange={props.changeTheme}
         theme={props.theme}
         data={props.data}
+        loadData={props.loadData}
       />
-      <GraphButtons
-        type={type}
-        onTypeChange={onTypeChange}
-        handleDateChange={handleDateChange}
-      />
-      <VerticalBar xaxis={xaxis} yaxis={yaxis} />
+      <div className="graphButtonContainer">
+        <GraphButtons
+          type={type}
+          onTypeChange={onTypeChange}
+          handleDateChange={handleDateChange}
+        />
+        <div
+          style={{
+            display: "grid",
+            justifyContent: "center",
+            alignContent: "center",
+            width: "50%",
+          }}
+        >
+          <VerticalBar xaxis={xaxis} yaxis={yaxis} />
+        </div>
+      </div>
     </>
   );
 };

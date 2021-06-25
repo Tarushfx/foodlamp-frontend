@@ -1,57 +1,32 @@
 import React from "react";
-
+import "../css/profileDown.css";
+import Likes from "../modals/likes";
 const ProfileDropdown = (props) => {
   return (
-    <div
-      className="btn-group-toggle"
-      id="selectFeedButtonGroup"
-      style={{ display: "flex", justifyContent: "space-around" }}
-    >
-      <a
-        href="/me"
-        className="nav-link"
-        style={{
-          backgroundColor: props.theme.secondary,
-          borderRadius: 2,
-          justifyContent: "center",
-          display: "grid",
-          flexGrow: 1,
-        }}
-      >
-        <button type="button" class="btn" style={{ color: props.theme.text }}>
-          Profile
-        </button>
-      </a>
-      <a
-        href="/me/likes"
-        className="nav-link"
-        style={{
-          backgroundColor: props.theme.secondary,
-          borderRadius: 2,
-          justifyContent: "center",
-          display: "grid",
-          flexGrow: 1,
-        }}
-      >
-        <button type="button" class="btn" style={{ color: props.theme.text }}>
-          Favourites
-        </button>
-      </a>
-      <a
-        href="/me/graphs"
-        style={{
-          backgroundColor: props.theme.secondary,
-          borderRadius: 2,
-          justifyContent: "center",
-          display: "grid",
-          flexGrow: 1,
-        }}
-      >
-        <button type="button" style={{ color: props.theme.text }} class="btn">
-          Graphs
-        </button>
-      </a>
-    </div>
+    <>
+      <figure className="snip1336">
+        <img src={process.env.PUBLIC_URL + "/road.jpg"} alt="x" />
+        <figcaption>
+          <img src={process.env.PUBLIC_URL + "/user.png"} class="profile" />
+          <h2>
+            {props.data && props.data.name}
+            <span>{props.data && props.data.email}</span>
+          </h2>
+          <a href="/graphs" class="follow">
+            Graphs
+          </a>
+          <a
+            class="info"
+            type="button"
+            data-toggle="modal"
+            data-target="#likesModal"
+            id="likeListButton"
+          >
+            Favourites
+          </a>
+        </figcaption>
+      </figure>
+    </>
   );
 };
 

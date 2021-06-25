@@ -26,7 +26,7 @@ const MealPlan = (props) => {
   const [graphExists, setGraphExists] = useState(false);
   const [graph, setGraph] = useState(<></>);
   const createGraph = () => {
-    if (dietNumber == null || !dietArray) return <></>;
+    if (dietNumber == null || dietNumber == -1 || !dietArray) return <></>;
     var len = dietTimings.length;
     var foundyvalues = new Array(len);
     // console.log(dietNumber);
@@ -50,17 +50,20 @@ const MealPlan = (props) => {
               new Date().toISOString().substr(0, 10)
           )
         );
-      console.log("====================================");
-      console.log(index);
-      console.log("====================================");
-      setDietNumber(index || -1);
-      setGraphExists(index != -1);
+      setDietNumber(index);
+      setGraphExists(dietNumber != -1);
       setDietArray(props.data && props.data.diet);
       setGraph(createGraph());
     };
     getDietArray();
   }, [props]);
   useEffect(() => {
+    if (dietNumber == -1) {
+      setGraphExists(false);
+      return () => {};
+    }
+    setGraphExists(true);
+
     setGraph(createGraph());
     return () => {};
   }, [dietNumber]);
@@ -122,25 +125,21 @@ const MealPlan = (props) => {
         onChange={props.changeTheme}
         theme={props.theme}
         data={props.data}
+        loadData={props.loadData}
       />
       <div className="row w-100 m-0">
-        <div className="col col-sm-0 col-md-3 p-0"></div>
-        <div className="col col-sm-0 col-md-5 p-0">
-          <DietCard
-            dietNumber={dietNumber}
-            dietChange={dietChange}
-            graph={<a />}
-            theme={props.theme}
-            diet={
-              (props.data && props.data.diet && props.data.diet[dietNumber]) ||
-              {}
-            }
-            graphExists={graphExists}
-            dietTimings={dietTimings}
-            graph={graph}
-          />
-        </div>
-        <div className="col col-sm-0 col-md-4 p-0"></div>
+        <DietCard
+          dietNumber={dietNumber}
+          dietChange={dietChange}
+          graph={<a />}
+          theme={props.theme}
+          diet={
+            (props.data && props.data.diet && props.data.diet[dietNumber]) || {}
+          }
+          graphExists={graphExists}
+          dietTimings={dietTimings}
+          graph={graph}
+        />
       </div>
 
       <DietForm handleChange={handleChange} onSubmit={onSubmit} />
