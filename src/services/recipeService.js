@@ -1,5 +1,5 @@
 import { getEmail } from "./authService";
-import http from "./httpService";
+import http,{apiEndpoint} from "./httpService";
 
 export async function getRecipes(search, from = 0, type = "q") {
   const recipes = await http.get("https://api.edamam.com/search", {
@@ -15,7 +15,7 @@ export async function getRecipes(search, from = 0, type = "q") {
 }
 export async function likeRecipe(name, link) {
   try {
-    const apiEndpoint = "http://localhost:4000";
+    // const apiEndpoint = "http://localhost:4000";
     const req = await http.post(`${apiEndpoint}/like`, {
       email: await getEmail(),
       link: { name: name, link: link },

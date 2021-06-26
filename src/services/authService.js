@@ -1,7 +1,8 @@
 import http from "./httpService";
 import _ from "lodash";
 import jwt from "jsonwebtoken";
-const apiEndpoint = "http://localhost:4000";
+// const apiEndpoint = "http://localhost:4000";
+import {apiEndpoint} from './httpService'
 
 export async function register(user) {
   try {

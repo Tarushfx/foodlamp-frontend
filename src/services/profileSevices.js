@@ -1,7 +1,7 @@
 import { getEmail } from "./authService";
 import http from "./httpService";
-const apiEndpoint = "http://localhost:4000";
-
+// const apiEndpoint = "http://localhost:4000";
+import {apiEndpoint} from './httpService'
 export async function saveDiet(diet) {
   try {
     const email = await getEmail();

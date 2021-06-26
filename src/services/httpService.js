@@ -5,5 +5,5 @@ const http = {
   put: axios.put,
   delete: axios.delete,
 };
-export const apiEndpoint = "http://localhost:4000";
+export const apiEndpoint = "https://quiet-anchorage-46655.herokuapp.com";
 export default http;
