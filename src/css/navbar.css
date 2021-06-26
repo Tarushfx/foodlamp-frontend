@@ -10,3 +10,7 @@
   display: inline-flex;
   margin: auto;
 }
+
+.react-tiny-popover-container {
+  z-index: 5;
+}

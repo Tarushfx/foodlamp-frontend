@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import FastfoodTwoToneIcon from "@material-ui/icons/FastfoodTwoTone";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
-import "../css/navbar.css";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import NavBarLink from "./navBarLink";
-import authService, { getName, getToken } from "../services/authService";
+import { getToken } from "../services/authService";
 import { WbSunny } from "@material-ui/icons";
 import SearchIcon from "@material-ui/icons/Search";
-import { getRecipes } from "../services/recipeService";
 import { Popover } from "react-tiny-popover";
 import ProfileDropdown from "./profileDropDown";
 import Likes from "../modals/likes";
+import "../css/navbar.css";
 export default function NavBar(props) {
   const token = getToken();
   const [search, setSearch] = useState("");

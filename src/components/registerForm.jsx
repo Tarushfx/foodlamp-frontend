@@ -61,7 +61,7 @@ const RegisterForm = (props) => {
                   Register
                 </button>
 
-                <div className="text-center">
+                {/* <div className="text-center">
                   <p>Register with: </p>
                   <a type="button" className="btn-floating btn-fb btn-sm">
                     <i className="fab fa-facebook-f"></i>
@@ -75,7 +75,7 @@ const RegisterForm = (props) => {
                   <a type="button" className="btn-floating btn-git btn-sm">
                     <i className="fab fa-github green"></i>
                   </a>
-                </div>
+                </div> */}
               </form>
             </div>
           </div>
