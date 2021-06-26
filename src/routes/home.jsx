@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import landingPage from "../images/landing page.jpg";
-import "../css/home.css";
 import FastfoodTwoToneIcon from "@material-ui/icons/FastfoodTwoTone";
+import "../css/home.css";
 
 const Home = () => {
   return (
@@ -35,18 +35,6 @@ const Home = () => {
           </div>
         </div>
       </header>
-      <section>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-      </section>
     </>
   );
 };
