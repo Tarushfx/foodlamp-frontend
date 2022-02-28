@@ -20,6 +20,9 @@ export async function loadData() {
           params: {
             email: email,
           },
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+          },
         })
         .catch((ex) => console.log(ex));
 
