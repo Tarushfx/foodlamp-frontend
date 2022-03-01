@@ -2,7 +2,7 @@ import http from "./httpService";
 import _ from "lodash";
 import jwt from "jsonwebtoken";
 // const apiEndpoint = "http://localhost:4000";
-import {apiEndpoint} from './httpService'
+import { apiEndpoint } from "./httpService";
 
 export async function register(user) {
   try {
@@ -21,7 +21,11 @@ export async function login(user) {
   try {
     const response = await http.post(
       `${apiEndpoint}/login`,
-      _.pick(user, ["email", "password"])
+      _.pick(user, ["email", "password"], {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+      })
     );
     localStorage.setItem("token", response.data);
 
