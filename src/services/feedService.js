@@ -42,6 +42,9 @@ export async function saveTheme(theme) {
       const data = await http.post(`${apiEndpoint}/me/theme`, {
         email: email,
         theme: theme,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
       });
     } else {
       console.log("no email");

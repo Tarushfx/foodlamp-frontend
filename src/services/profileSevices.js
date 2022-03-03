@@ -1,7 +1,7 @@
 import { getEmail } from "./authService";
 import http from "./httpService";
 // const apiEndpoint = "http://localhost:4000";
-import {apiEndpoint} from './httpService'
+import { apiEndpoint } from "./httpService";
 export async function saveDiet(diet) {
   try {
     const email = await getEmail();
@@ -9,6 +9,9 @@ export async function saveDiet(diet) {
       const data = await http.post(`${apiEndpoint}/diet`, {
         email: email,
         diet: diet,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
       });
     } else {
       console.log("no email");
@@ -32,6 +35,9 @@ export async function saveProfile({
         name: name,
         newPassword: newPassword,
         oldPassword: oldPassword,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
       });
     } else {
       console.log("Invalid");

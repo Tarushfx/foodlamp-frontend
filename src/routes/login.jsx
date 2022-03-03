@@ -19,6 +19,7 @@ class Login extends Form {
   };
   doSubmit = async () => {
     try {
+      console.log("hello");
       const response = await authService.login(
         _.pick(this.state.details, ["email", "password"])
       );
