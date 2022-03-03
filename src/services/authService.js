@@ -8,7 +8,12 @@ export async function register(user) {
   try {
     const response = await http.post(
       `${apiEndpoint}/register`,
-      _.pick(user, ["name", "email", "password"])
+      _.pick(user, ["name", "email", "password"]),
+      {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+      }
     );
     localStorage.setItem("token", response.headers["x-auth-token"]);
     return { status: true };
@@ -19,6 +24,7 @@ export async function register(user) {
 
 export async function login(user) {
   try {
+    console.log("hello");
     const response = await http.post(
       `${apiEndpoint}/login`,
       _.pick(user, ["email", "password"], {
@@ -27,6 +33,7 @@ export async function login(user) {
         },
       })
     );
+    console.log(response.headers);
     localStorage.setItem("token", response.data);
 
     return { status: true };
@@ -37,7 +44,6 @@ export async function login(user) {
 
 export async function logout() {
   localStorage.removeItem("token");
-
   return;
 }
 export function getToken() {

@@ -1,5 +1,5 @@
 import { getEmail } from "./authService";
-import http,{apiEndpoint} from "./httpService";
+import http, { apiEndpoint } from "./httpService";
 
 export async function getRecipes(search, from = 0, type = "q") {
   const recipes = await http.get("https://api.edamam.com/search", {
@@ -10,6 +10,9 @@ export async function getRecipes(search, from = 0, type = "q") {
       from: from,
     },
     mode: "cors",
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
   });
   return recipes;
 }
@@ -19,6 +22,9 @@ export async function likeRecipe(name, link) {
     const req = await http.post(`${apiEndpoint}/like`, {
       email: await getEmail(),
       link: { name: name, link: link },
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
     });
   } catch (ex) {
     console.log(ex.message);
